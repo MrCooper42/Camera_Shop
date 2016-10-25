@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./main.css" media="screen" title="no title">
+    <title>Camera Shop</title>
+</head>
+
+<body ng-app="cameraShop" ng-controller="cameraCart">
+    <div>
+        <h1>Camera Shop</h1>
+        <select ng-model="order">
+      <option value="price">Price</option>
+      <option value="rating" selected>Rating</option>
+    </select>
+        <div ng-repeat="point in data | orderBy: order : true">
+            <p>
+                {{point.title}}
+            </p>
+            <p ng-class="{sale: point.onSale === true}">
+                {{point.price | currency}}
+                <span  ng-show="point.onSale === true">ON SALE!!!</span>
+            </p>
+            <p>
+                {{point.rating}}
+            </p>
+            <button ng-click="addItem(point)">Add to cart</button>
+            <img ng-src="{{point.image}}" alt="{{point.title}} picture" />
+        </div>
+    </div>
+
+    <div>
+      <h3>Items in cart.</h3>
+      <ul>
+        <li ng-repeat="item in currentItems track by $index">
+          {{item.title}}, {{item.price | currency}}
+        </li>
+      </ul>
+      <h5>Your total cost is:</h5>
+      <span>{{total | currency}}</span>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script src="./app.js" charset="utf-8"></script>
+</body>
+
+</html>
